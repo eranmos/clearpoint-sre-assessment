@@ -1,7 +1,7 @@
 <h1 align="center">Clearpoint SRE Assessment</h1>
 <h6 align="center">This Repo will aggregate my assessment</h6>
 
-<p align="center"><img width="250px" src="./diagrams_&_pictures/clearpoint_logo.png"></p>
+<p align="center"><img width="500px" src="./diagrams_&_pictures/clearpoint_logo.png"></p>
 
 ## Table of Contents
 
