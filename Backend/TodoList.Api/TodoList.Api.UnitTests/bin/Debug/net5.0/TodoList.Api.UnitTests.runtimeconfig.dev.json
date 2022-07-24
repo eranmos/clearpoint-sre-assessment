@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/Users/ahilmatheweapachen/.dotnet/store/|arch|/|tfm|",
+      "/Users/ahilmatheweapachen/.nuget/packages"
+    ]
+  }
+}

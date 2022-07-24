@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  web:
+    build: ./Frontend
+    image: cptodoui
+    ports:
+      - "3000:80"
+  api:
+    build: ./Backend/TodoList.Api
+    image: cptodoapi
+    ports:
+      - "3002:80"

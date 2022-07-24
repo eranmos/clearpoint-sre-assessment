@@ -1,0 +1,15 @@
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/bin/Debug/net5.0/TodoList.Business.deps.json
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/bin/Debug/net5.0/TodoList.Business.dll
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/bin/Debug/net5.0/ref/TodoList.Business.dll
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/bin/Debug/net5.0/TodoList.Business.pdb
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/bin/Debug/net5.0/TodoList.Data.dll
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/bin/Debug/net5.0/TodoList.Data.pdb
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/obj/Debug/net5.0/TodoList.Business.csproj.AssemblyReference.cache
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/obj/Debug/net5.0/TodoList.Business.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/obj/Debug/net5.0/TodoList.Business.AssemblyInfoInputs.cache
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/obj/Debug/net5.0/TodoList.Business.AssemblyInfo.cs
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/obj/Debug/net5.0/TodoList.Business.csproj.CoreCompileInputs.cache
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/obj/Debug/net5.0/TodoList.Business.csproj.CopyComplete
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/obj/Debug/net5.0/TodoList.Business.dll
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/obj/Debug/net5.0/ref/TodoList.Business.dll
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Business/obj/Debug/net5.0/TodoList.Business.pdb

@@ -1,0 +1,60 @@
+name: Frontend-build-secure-and-push-aws
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - Frontend/**
+      - .github/workflows/docker-image-frontend-aws.yml
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - Frontend/**
+      - .github/workflows/docker-image-frontend-aws.yml
+
+env:
+  AWS_ECR_REGISTRY: 861864417278.dkr.ecr.us-east-1.amazonaws.com
+  AWS_ECR_REPOSITORY: clearpoint-frontend
+  AWS_REGION: us-east-1
+
+
+jobs:
+  build-frontend-docker-image:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build FE Docker image
+      working-directory: Frontend
+      run: |
+        docker build . --file Dockerfile --tag ${{env.AWS_ECR_REGISTRY}}/${{env.AWS_ECR_REPOSITORY}}:${{github.run_number}}
+        docker tag ${{env.AWS_ECR_REGISTRY}}/${{env.AWS_ECR_REPOSITORY}}:${{github.run_number}} ${{env.AWS_ECR_REGISTRY}}/${{env.AWS_ECR_REPOSITORY}}:latest
+
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: '${{env.AWS_ECR_REGISTRY}}/${{env.AWS_ECR_REPOSITORY}}:${{github.run_number}}'
+        format: 'table'
+        exit-code: '0'
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'HIGH,CRITICAL'
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{env.AWS_REGION}}
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: publish docker image to amazon ECRR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      run: |
+        docker push ${{env.AWS_ECR_REGISTRY}}/${{env.AWS_ECR_REPOSITORY}}:${{github.run_number}}
+        docker push ${{env.AWS_ECR_REGISTRY}}/${{env.AWS_ECR_REPOSITORY}}:latest
+

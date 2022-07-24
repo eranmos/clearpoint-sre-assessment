@@ -1,0 +1,28 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clearpoint-backend
+spec:
+  selector:
+    matchLabels:
+      app: clearpoint-backend
+      tier: backend
+      track: stable
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: clearpoint-backend
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: clearpoint-backend
+          image: "erandocker/clearpoint_backend:latest"
+          ports:
+            - name: http
+              containerPort: 80
+      nodeSelector:
+        role: backend
+...

@@ -1,0 +1,12 @@
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Data/bin/Debug/net5.0/TodoList.Data.deps.json
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Data/bin/Debug/net5.0/TodoList.Data.dll
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Data/bin/Debug/net5.0/ref/TodoList.Data.dll
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Data/bin/Debug/net5.0/TodoList.Data.pdb
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Data/obj/Debug/net5.0/TodoList.Data.csproj.AssemblyReference.cache
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Data/obj/Debug/net5.0/TodoList.Data.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Data/obj/Debug/net5.0/TodoList.Data.AssemblyInfoInputs.cache
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Data/obj/Debug/net5.0/TodoList.Data.AssemblyInfo.cs
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Data/obj/Debug/net5.0/TodoList.Data.csproj.CoreCompileInputs.cache
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Data/obj/Debug/net5.0/TodoList.Data.dll
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Data/obj/Debug/net5.0/ref/TodoList.Data.dll
+/Users/ahilmatheweapachen/Work/repos/clearpoint/sre-assessment/Backend/TodoList.Api/TodoList.Data/obj/Debug/net5.0/TodoList.Data.pdb

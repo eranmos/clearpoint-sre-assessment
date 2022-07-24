@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-clearpoint-backend
+spec:
+  selector:
+    app: clearpoint-backend
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: http
+...
