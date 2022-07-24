@@ -1,7 +1,7 @@
 <h1 align="center">Clearpoint SRE Assessment</h1>
 <h6 align="center">This Repo will aggregate my assessment</h6>
 
-<p align="center"><img width="500px" src="./diagrams_&_pictures/clearpoint_logo.png"></p>
+<p align="center"><img width="250px" src="./diagrams_&_pictures/clearpoint_logo.png"></p>
 
 ## Table of Contents
 
@@ -23,7 +23,7 @@
 
 
 ## Infrastructure Architecture Diagram
-![architecture_diagram](diagrams_&_pictures/ops_school_project_architecture_diagram.png)
+![architecture_diagram](diagrams_&_pictures/clearpoint_project_architecture_diagram.png)
 
 ## Application Diagram
 ![app_diagram](diagrams_&_pictures/ops_school-project_app_diagram.png)
