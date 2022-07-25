@@ -31,7 +31,7 @@
 
 ## Deployment Process
 + Infrastructure deployment via Terraform
-+ EKS deployments via Github actions
++ applications deployments via Github actions
 
 ## Prerequisites
 
@@ -43,29 +43,36 @@ To deploy all infrastructure you will need below application to be installed on 
 + Install [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) on your workstation/server
 
 ### AWS User and tokens
-+ Access to your Console AWS and create a user for terraform deployment with the right permissions. [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) Save it for later
-+ Access to your Console AWS and create a user for Github action deployments with the right permissions. [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) Save it for later
++ Access to your Console AWS and [create a user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) for terraform deployment with the right permissions. Save it for later
++ Access to your Console AWS and [create a user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) for Github action deployments with the right permissions. Save it for later
 
 ### AWS Cli configurations
 + Configure your [AWS Cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) 
-
-### DockerHub Token
-+ Create your [DockerHub Access Tokens](https://docs.docker.com/docker-hub/access-tokens/) and save it for later
 
 ### Github configurations
 + Clone [GITHUB](https://github.com/eranmos/clearpoint-sre-assessment-tmp.git) Project
 + Create [Personal access tokens](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) on Github and save it for later
 + Create [Github Actions secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) as below and add your data:
-##### DOCKERHUB_TOKEN
-##### DOCKERHUB_USERNAME
-##### TERRAFORM_AWS_ACCESS_KEY_ID
-##### TRERRAFORM_AWS_SECRET_ACCESS_KEY
+##### AWS_ACCESS_KEY_ID
+##### AWS_SECRET_ACCESS_KEY
+##### AWS_DEFAULT_REGION
+##### KUBE_CONFIG_DATA
 
 + Enable [Github code scanning](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/setting-up-code-scanning-for-a-repository) for a repository
 + 
+<br />
 
+```
+.
+├── ./Backend
+├── ./EKS_deployments_yaml
+├── ./Frontend
+├── ./diagrams_&_pictures
+├── ./network_address_design
+└── ./terraform
+```
 ## Deployment Instructions
-Infrastructure deployment will be performed via Terraform locally or Github actions.
+Infrastructure deployment will be performed via Terraform locally
 1. Terraform deployment is divided into eight parts.
    Run the following on each terraform_XXX folder (Jenkins job can run only after Jenkins deployment)
    ```bash
