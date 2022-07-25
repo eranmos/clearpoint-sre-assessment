@@ -5,9 +5,12 @@ jobs:
     name: check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v3
+      - name: check directory
+        working-directory: EKS_deployments_yaml
+      run: |
+        ls -l
       - name: Check current pods status
-        working-directory: Frontend
         uses: qazz92/kubectl@1.0.3
         env:
           kube_confg_data: ${{ secrets.KUBE_CONFIG_DATA }}
