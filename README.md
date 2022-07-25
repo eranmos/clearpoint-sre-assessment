@@ -77,13 +77,13 @@ To deploy all infrastructure you will need below application to be installed on 
 ├── ./network_address_design
 └── ./terraform
 ```
-.github/workflows - All the CD pipelines for github actions
-Backend - Backend application folder and docker file
-EKS_deployments_yaml - All EKS deployments files(manifests)
-Frontend - Frontend application folder and docker file
-diagrams_&_pictures - All print screens for readme.md files
-network_address_design - Network address allocation for this project
-terraform - terraform files for infrastructure deployment on AWS
+.github/workflows - All the CD pipelines for github actions <br />
+Backend - Backend application folder and docker file <br />
+EKS_deployments_yaml - All EKS deployments files(manifests) <br />
+Frontend - Frontend application folder and docker file <br />
+diagrams_&_pictures - All print screens for readme.md files <br />
+network_address_design - Network address allocation for this project <br />
+terraform - terraform files for infrastructure deployment on AWS <br />
 
 ## Deployment Instructions
 Infrastructure deployment will be performed via Terraform locally
