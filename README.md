@@ -45,16 +45,23 @@ To deploy all infrastructure you will need below application to be installed on 
 + Install [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) on your workstation/server
 
 ### AWS User and tokens
-+ Access to your Console AWS and create a user for terraform deployment with right permissions. [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html)
-+ Access to your Console AWS and create a user for Github action deployments with right permissions. [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html)
++ Access to your Console AWS and create a user for terraform deployment with right permissions [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) and save it for later
++ Access to your Console AWS and create a user for Github action deployments with right permissions [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) and save it for later
 
 ### AWS Cli configurations
 + Configure your [AWS Cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) 
 
+### DockerHub Token
++ Create your [DockerHub Access Tokens](https://docs.docker.com/docker-hub/access-tokens/) and save it for later
+
 ### Github configurations
-+ Fork Project [GITHUB](https://github.com/eranmos/clearpoint-sre-assessment-tmp.git)
++ Clone Project [GITHUB](https://github.com/eranmos/clearpoint-sre-assessment-tmp.git)
 + Create [Personal access tokens](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) on Github and save it for later
-+ create 
++ Create [Github Actions secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) on the clone repo as below:
+#### DOCKERHUB_TOKEN
+#### DOCKERHUB_USERNAME
+#### TERRAFORM_AWS_ACCESS_KEY_ID
+#### TRERRAFORM_AWS_SECRET_ACCESS_KEY
 
 ## Deployment Instructions
 Infrastructure deployment will be performed via Terraform locally or Github actions.
