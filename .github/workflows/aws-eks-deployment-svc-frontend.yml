@@ -1,15 +1,15 @@
-name: Deploy-Service-Backend
+name: Deploy-Service-Frontend
 on:
   push:
     branches: [ "main" ]
     paths:
-      - .github/workflows/aws-eks-deployment-svc-backend.yml
-      - EKS_deployments_yaml/**
+      - .github/workflows/aws-eks-deployment-svc-frontend.yml
+      - EKS_deployments_yaml/frontend-service.yaml
   pull_request:
     branches: [ "main" ]
     paths:
-      - .github/workflows/aws-eks-deployment-svc-backend.yml
-      - EKS_deployments_yaml/*
+      - .github/workflows/aws-eks-deployment-svc-frontend.yml
+      - EKS_deployments_yaml/frontend-service.yaml
 
 env:
   K8S_NAMESPACE: applications
@@ -18,7 +18,7 @@ env:
 
 
 jobs:
-  Deploy-clearpoint-backend-service-on-EKS:
+  Deploy-clearpoint-frontend-service-on-EKS:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -42,12 +42,12 @@ jobs:
         with:
           args: get svc -o wide -n ${{ env.K8S_NAMESPACE }}
 
-      - name: Dedploy clratpoint-backend-service
+      - name: Dedploy clratpoint frontend service
         uses: Consensys/kubernetes-action@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          args: apply -f ./EKS_deployments_yaml/backend-service.yaml -n ${{ env.K8S_NAMESPACE }}
+          args: apply -f ./EKS_deployments_yaml/frontend-service.yaml -n ${{ env.K8S_NAMESPACE }}
 
       - name: check service status afteer deployment
         uses: Consensys/kubernetes-action@master
