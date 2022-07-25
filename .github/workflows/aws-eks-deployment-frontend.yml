@@ -23,7 +23,7 @@ jobs:
           ls -l
 
       - name: check pods status
-        uses: qazz92/kubectl@1.0.3
+      - uses: qazz92/kubectl@1.0.3
         env:
           kube_confg_data: ${{ secrets.KUBE_CONFIG_DATA }}
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -33,7 +33,7 @@ jobs:
           args: '"get pods -o wide -n applications"'
 
       - name: verify deployment
-        uses: qazz92/kubectl@1.0.3
+      - uses: qazz92/kubectl@1.0.3
         env:
           kube_confg_data: ${{ secrets.KUBE_CONFIG_DATA }}
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
