@@ -11,9 +11,10 @@
 - [IP Address Allocation](/network_address_design/network_adresses_design.md)
 - [Deployment Process](#Deployment-Process)
 - [Prerequisites](#prerequisites)
+- [Repository Folder structure](#Repository-Folder-structure)
 - [Deployment Instructions](#Deployment-Instructions)
 - [Application Connections](#Application-Connections)
-- [Application URLS](#Application-URLS)
+- [Application URL](#Application-URLS)
 - [Vulnerability Check](#Vulnerability-Check)
 - [Clearpoint-Todo List App](#Clearpoint-Todo-List-App)
 - [Links to dockerhub related images](#Links-to-dockerhub-related-images)
@@ -50,20 +51,25 @@ To deploy all infrastructure you will need below application to be installed on 
 + Configure your [AWS Cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) 
 
 ### Github configurations
-+ Clone [GITHUB](https://github.com/eranmos/clearpoint-sre-assessment-tmp.git) Project
 + Create [Personal access tokens](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) on Github and save it for later
 + Create [Github Actions secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) as below and add your data:
-##### AWS_ACCESS_KEY_ID
+
+```##### AWS_ACCESS_KEY_ID
 ##### AWS_SECRET_ACCESS_KEY
 ##### AWS_DEFAULT_REGION
 ##### KUBE_CONFIG_DATA
-
+```
 + Enable [Github code scanning](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/setting-up-code-scanning-for-a-repository) for a repository
-+ 
+
 <br />
+
+## Repository Folder structure
 
 ```
 .
+├
+├── ./.github
+│   └── ./.github/workflows
 ├── ./Backend
 ├── ./EKS_deployments_yaml
 ├── ./Frontend
@@ -71,50 +77,90 @@ To deploy all infrastructure you will need below application to be installed on 
 ├── ./network_address_design
 └── ./terraform
 ```
+.github/workflows - All the CD pipelines for github actions
+Backend - Backend application folder and docker file
+EKS_deployments_yaml - All EKS deployments files(manifests)
+Frontend - Frontend application folder and docker file
+diagrams_&_pictures - All print screens for readme.md files
+network_address_design - Network address allocation for this project
+terraform - terraform files for infrastructure deployment on AWS
+
 ## Deployment Instructions
 Infrastructure deployment will be performed via Terraform locally
-1. Terraform deployment is divided into eight parts.
-   Run the following on each terraform_XXX folder (Jenkins job can run only after Jenkins deployment)
+1. Clone [GITHUB](https://github.com/eranmos/clearpoint-sre-assessment-tmp.git) Project to your desktop
+2. Access to terraform folder and run below commands
+
    ```bash
    terraform init
+   terraform plan
    terraform apply --auto-approve
    ```
 
-+ [Terraform-s3](/terraform/terraform_s3_bucket) - Creating S3 Buckets
-+ [Terraform-EBS](/terraform/terraform_ebs_jenkins) - Creating EBS Storage
-+ [Terraform-VPC](/terraform/terraform_vpc) - Creating VPC
-+ [Terraform-Jenkins](/terraform/terraform_jenkins) - Creating Jenkins Master & Jenkins Slave
-+ [Terraform-Servers](/terraform/terraform_servers) - Creating Consul cluster, Elasticsearch, Prometheus without application (application will be installed via ansible playbook)
-+ [Terraform-EKS](/terraform/terraform_eks) - Creating Kubernetes cluster
-+ [Terraform-RDS](/terraform/terraform_postgres) - Creating Postgres DB on AWS RDS
-+ [Terraform Bastion Server](/terraform/terraform_bastion_server) - Creating Bastion server for debugging & maintenance
-> note: Bastion server - In order to avoid security issues we're recommending to destroy the machine or turn it off when not needed
+Terraform will create all the resources for this Project
 
-After deploying Jenkins Servers (Master & Slave) you can run rest of the deployments via Jenkins Job:
-Jenkins UI : https://jenkins.kandula.click/
-+ [jenkins file location](/Jenkins/jenkins_jobs/jenkis_terraform_deployments/jenkins_terraform_build_kandula_env.groovy)
-+ [jenkins job link](https://jenkins.kandula.click/view/Terraform%20Deployment/job/Terraform-Build-Kandula-Env/)
+3. When EKS cluster is ready you will need to update github secrets with KUBECONFIG file <br />
+   You can find it: cat $HOME/.kube/config | base64 .
+   ```bash
+   cat $HOME/.kube/config | base64
+      ```
+   copy the result and them to github secrets that you already created
+```
+##### KUBE_CONFIG_DATA
+```
+
+4. In this step you will need to update the docker image repository location by copy then from the terraform output
+
+```
+Backend_repository_URL = "XXXXXXXXX.dkr.ecr.us-east-1.amazonaws.com/clearpoint-frontend"
+Frontend_repository_URL = "XXXXXXXXX.dkr.ecr.us-east-1.amazonaws.com/clearpoint-backend"
+```
+please update backend url in the backend deployment yaml:
+```
+├── ./EKS_deployments_yaml
+│    ├── ./EKS_deployments_yaml/backend-deployment.yaml
+```
+
+```
+containers:
+  - name: clearpoint-backend
+    image: "XXXXXXXXX.dkr.ecr.us-east-1.amazonaws.com/clearpoint-backend:latest"
+```
+Please update frontend url in the frontend deployment yaml:
+```
+├── ./EKS_deployments_yaml
+    ├── ./EKS_deployments_yaml/frontend-deployment.yaml
+```
+```
+containers:
+  - name: clearpoint-frontend
+    image: "XXXXXXXXX.dkr.ecr.us-east-1.amazonaws.com/clearpoint-frontend:latest"
+```
+
+5. Push your changes to main github branch will trigger github Action that will create docker image & will upload it to ecr repository <br />
+You can find related workflow on below location:
+```
+├── ./.github
+    └── ./.github/workflows
+        ├── ./.github/workflows/docker-image-backend-aws.yml
+        ├── ./.github/workflows/docker-image-frontend-aws.yml
+
+```
+When pipeline succeeded you can verify in ECR that you can see the docker image & tags for backend & frontend <br />
+
+6. To deploy Backend, Backend service, Frontend and frontend service on EKS cluster you will need to trigger manually the CD pipeline. <br />
+   You can find related workflow on below location:
+```
+── ./.github
+│  ├── ./.github/.DS_Store
+│  └── ./.github/workflows
+│      ├── ./.github/workflows/AWS-EKS-Deployment-Environment.yml
+```
+
+[GitHub Actions](Deploy_nfrastructure_pipeline.png)
+
+7. Deploying below applications on EKS cluster:
 
 
-2. After deploying the infrastructure via Terraform & Jenkins we will need to provision our EC2 instances with below app:
-+ Consul Cluster (3 servers)
-+ Consul Agent
-+ Consul Registrator
-+ Elasticsearch
-+ Kibana
-+ Logstash
-+ Filebeat
-+ Prometheus
-+ Node Exporter
-
-4. Deploying below applications on EKS cluster:
-+ Kandula-Prometheus-Stack
-+ Kandula App
-+ Filebeat
-  All EKS deployments will be run via Jenkins Job
-    + please run Jenkins Job:
-    + [jenkins file location](Jenkins/jenkins_jobs/kubernetes_deployment/jenkins_kube_all_deployment.groovy)
-    + [jenkins job link](https://jenkins.kandula.click/view/Kubernetes%20Deployment/job/Kandula-Deployment-All-EKS/)
 
 #### [Click here get all info about my jenkins jobs and configurations](Jenkins/README.md)
 

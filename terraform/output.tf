@@ -36,3 +36,13 @@ output "cluster_name" {
   description = "Kubernetes Cluster Name"
   value       = local.eks_cluster_name
 }
+
+output "Frontend_repository_URL" {
+  description = "clearpoint-backend repository URL"
+  value       = aws_ecr_repository.clearpoint-backend.repository_url
+}
+
+output "Backend_repository_URL" {
+  description = "clearpoint-frontend repository URL"
+  value       = aws_ecr_repository.clearpoint-frontend.repository_url
+}
