@@ -54,7 +54,7 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          args: rollout status deployment/service-clearpoint-backend -n ${{ env.K8S_NAMESPACE }}
+          args: rollout status service/service-clearpoint-backend -n ${{ env.K8S_NAMESPACE }}
 
       - name: check service status afteer deployment
         uses: Consensys/kubernetes-action@master
