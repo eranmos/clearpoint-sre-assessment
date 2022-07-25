@@ -149,20 +149,21 @@ Public URLs to access my apps: <br />
 - [Kibana](https://jenkins.kandula.click/) - Jenkins UI
 
 ## Vulnerability Check
-In my Project I am using two vulnerability tools:
-+ Trivy
-+ Snyk
+In this Project I am using Trivy vulnerability tools
 
 ### Docker image Vulnerability Check via Trivy
-I integrated Trivy in my Jenkins pipeline.
-When jenkins will create a docker trivy will scan it & will provide output report
-with vulnerability issues that he discovered
+I integrated Trivy in my GitHub Actions pipeline.
+When we have Git push or MR to That related to /Frontend, /Backend, folders on "main" branch Github Actions will be trigger.
+Pipeline will create:
++ Docker image 
++ Docker image vulnerability check(with report) 
++ Upload Docker image to docker hub if we dont have Critial vulnerability issue.
 
-#### Jenkins - Docker image creation pipeline with Trivy:
+#### Github Actions - Docker image creation pipeline with Trivy:
 ![architecture_diagram](diagrams_&_pictures/jenkins_trivy_build.png)
 
 
-#### Trivy report on jenkins pipeline:
+#### Trivy report on Github Actions:
 ![architecture_diagram](diagrams_&_pictures/jenkins_trivy_report.png)
 
 ### Code scan vulnerability Check via Trivy & Snyk
