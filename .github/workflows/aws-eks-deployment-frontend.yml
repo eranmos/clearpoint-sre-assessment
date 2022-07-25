@@ -12,24 +12,27 @@ on:
       - EKS_deployments_yaml/*
 
 env:                                                      
-  NAMESPACE: applications
+ K8S_NAMESPACE: applications
+ K8S_DEPLOYMENT: clearpoint-frontend
+ DOCKER_TAG: latest
 
 
 jobs:
   deploy-frontend-on-EKS:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./EKS_deployments_yaml
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
       - name: checking work directory
-        working-directory: EKS_deployments_yaml
         run: |
           ls -l
 
       - name: check pods status
-        working-directory: EKS_deployments_yaml
         uses: qazz92/kubectl@1.0.3
         env:
           kube_confg_data: ${{ secrets.KUBE_CONFIG_DATA }}
@@ -37,7 +40,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_DEFAULT_REGION }}
         with:
-          args: '"apply -f frontend-deployment.yaml -n ${{ env.NAMESPACE }}"'
+          args: '"apply -f frontend-deployment.yaml -n ${{ env.K8S_NAMESPACE }}"'
 
       - name: verify deployment
         uses: qazz92/kubectl@1.0.3
