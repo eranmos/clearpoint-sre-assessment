@@ -163,11 +163,10 @@ When pipeline succeeded you can verify in ECR that you can see the docker image 
 │  └── ./.github/workflows
 │      ├── ./.github/workflows/AWS-EKS-Deployment-Environment.yml
 ```
-
-![GitHub Actions](Deploy_nfrastructure_pipeline.png)
+![GitHub Actions](diagrams_&_pictures/Deploy_nfrastructure_pipeline.png)
 
 7. To find Application URL please go to github action logs & find below step after frontend-service deployment
-![Application URL](application_url.png)
+![Application URL](diagrams_&_pictures/application_url.png)
 
 
 #### [Click here get all info about my jenkins jobs and configurations](Jenkins/README.md)
