@@ -1,162 +1,198 @@
-<h1 align="center">Clearpoint SRE Assessment</h1>
-<h6 align="center">This Repo will aggregate my assessment</h6>
+<h1 align="center">GitHub Actions</h1>
+<h6 align="center">This README will describe all GitHub Actions< workflows on My Project</h6>
 
-<p align="center"><img width="500px" src="./diagrams_&_pictures/clearpoint_logo.png"></p>
+<p align="center"><img width="250px" src="./diagrams_&_pictures/github_ations_pic.png"></p>
+
+## Application diagram
+![app_diagram](diagrams_&_pictures/ops_school-jenkins_app_diagram.png)
+
+Jenkins Link : https://jenkins.kandula.click/
 
 ## Table of Contents
 
-- [Infrastructure Architecture Diagram](#Infrastructure-Architecture-Diagram)
-- [Application Diagram](#Application-Diagram)
-- [EKS Diagram](#EKS-Diagram)
-- [IP Address Allocation](/network_address_design/network_adresses_design.md)
-- [Deployment Process](#Deployment-Process)
-- [Prerequisites](#prerequisites)
-- [Deployment Instructions](#Deployment-Instructions)
-- [Application Connections](#Application-Connections)
-- [Application URLS](#Application-URLS)
-- [Vulnerability Check](#Vulnerability-Check)
-- [Clearpoint-Todo List App](#Clearpoint-Todo-List-App)
-- [Links to dockerhub related images](#Links-to-dockerhub-related-images)
-- [Improvement Points For The Future](#Improvement-points-for-the-future)
+- [Jenkins Terraform Deployment](#Jenkins-Terraform-Deployment)
+- [Jenkins Ansible Playbooks](#Jenkins-Ansible-Playbooks)
+- [Jenkins Kubernetes Deployment](#Jenkins-Kubernetes-Deployment)
+- [Jenkins Docker Images](#Jenkins-Docker-Images)
+- [Jenkins plugins](#Jenkins-plugins)
 
+## Jenkins Terraform Deployment
 
-## Infrastructure Architecture Diagram
-![architecture_diagram](diagrams_&_pictures/clearpoint_project_architecture_diagram.png)
+![app_diagram](diagrams_&_pictures/jenkins_terraform_jobs.png)
 
-## Application Diagram
-![app_diagram](diagrams_&_pictures/clearpoint-project_app_diagram.png)
+This view aggregate all terraform jenkins jobs
 
-## EKS Diagram
-![app_diagram](diagrams_&_pictures/clearpoint_eks_diagram.png)
+![Pipeline example](diagrams_&_pictures/jenkins_terrafrom_bastion.png)
 
-## Deployment Process
-+ Infrastructure deployment via Terraform
-+ EKS deployments via Github actions
+![Pipeline parameters example](diagrams_&_pictures/terraform_parms.png)
 
-## Prerequisites
-
-### Applications and tools
-To deploy all infrastructure you will need below application to be installed on your workstation/server
-+ Install [GIT](https://github.com/git-guides/install-git) on your workstation/server
-+ Install [Terraform v1.2.5](https://learn.hashicorp.com/tutorials/terraform/install-cli) on your workstation/server
-+ Install [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) on your workstation/server
-+ Install [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) on your workstation/server
-
-### AWS User and tokens
-+ Access to your Console AWS and create a user for terraform deployment with the right permissions. [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) Save it for later
-+ Access to your Console AWS and create a user for Github action deployments with the right permissions. [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) Save it for later
-
-### AWS Cli configurations
-+ Configure your [AWS Cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) 
-
-### DockerHub Token
-+ Create your [DockerHub Access Tokens](https://docs.docker.com/docker-hub/access-tokens/) and save it for later
-
-### Github configurations
-+ Clone [GITHUB](https://github.com/eranmos/clearpoint-sre-assessment-tmp.git) Project
-+ Create [Personal access tokens](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) on Github and save it for later
-+ Create [Github Actions secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) as below and add your data:
-##### DOCKERHUB_TOKEN
-##### DOCKERHUB_USERNAME
-##### TERRAFORM_AWS_ACCESS_KEY_ID
-##### TRERRAFORM_AWS_SECRET_ACCESS_KEY
-
-+ Enable [Github code scanning](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/setting-up-code-scanning-for-a-repository) for a repository
-+ 
-
-## Deployment Instructions
-Infrastructure deployment will be performed via Terraform locally or Github actions.
-1. Terraform deployment is divided into eight parts.
-   Run the following on each terraform_XXX folder (Jenkins job can run only after Jenkins deployment)
-   ```bash
-   terraform init
-   terraform apply --auto-approve
-   ```
-
-+ [Terraform-s3](/terraform/terraform_s3_bucket) - Creating S3 Buckets
-+ [Terraform-EBS](/terraform/terraform_ebs_jenkins) - Creating EBS Storage
-+ [Terraform-VPC](/terraform/terraform_vpc) - Creating VPC
-+ [Terraform-Jenkins](/terraform/terraform_jenkins) - Creating Jenkins Master & Jenkins Slave
-+ [Terraform-Servers](/terraform/terraform_servers) - Creating Consul cluster, Elasticsearch, Prometheus without application (application will be installed via ansible playbook)
-+ [Terraform-EKS](/terraform/terraform_eks) - Creating Kubernetes cluster
-+ [Terraform-RDS](/terraform/terraform_postgres) - Creating Postgres DB on AWS RDS
-+ [Terraform Bastion Server](/terraform/terraform_bastion_server) - Creating Bastion server for debugging & maintenance
-> note: Bastion server - In order to avoid security issues we're recommending to destroy the machine or turn it off when not needed
-
-After deploying Jenkins Servers (Master & Slave) you can run rest of the deployments via Jenkins Job:
-Jenkins UI : https://jenkins.kandula.click/
+**Job Name: Terraform-Build-Kandula-Env:** <br />
+The job will create All Env (will trigger all below jobs with the right logic)
 + [jenkins file location](/Jenkins/jenkins_jobs/jenkis_terraform_deployments/jenkins_terraform_build_kandula_env.groovy)
-+ [jenkins job link](https://jenkins.kandula.click/view/Terraform%20Deployment/job/Terraform-Build-Kandula-Env/)
++ [jenkins job link](https://jenkins.kandula.click/view/Terraform_Deployment/job/Terraform-Build-Kandula-Env/)
 
 
-2. After deploying the infrastructure via Terraform & Jenkins we will need to provision our EC2 instances with below app:
-+ Consul Cluster (3 servers)
-+ Consul Agent
-+ Consul Registrator
-+ Elasticsearch
-+ Kibana
-+ Logstash
-+ Filebeat
-+ Prometheus
-+ Node Exporter
-
-4. Deploying below applications on EKS cluster:
-+ Kandula-Prometheus-Stack
-+ Kandula App
-+ Filebeat
-  All EKS deployments will be run via Jenkins Job
-    + please run Jenkins Job:
-    + [jenkins file location](Jenkins/jenkins_jobs/kubernetes_deployment/jenkins_kube_all_deployment.groovy)
-    + [jenkins job link](https://jenkins.kandula.click/view/Kubernetes%20Deployment/job/Kandula-Deployment-All-EKS/)
-
-#### [Click here get all info about my jenkins jobs and configurations](Jenkins/README.md)
-
-## Application Connections
-
-### Clearpoint FE BE & LB:
-| Description | Source | Source Port | Destination  | Destination Port | Protocol |
-| ----------- | ------ | ----------- | ------------ | -----------------| -------- |
-| Frontend | * | * | Backend | 80 | HTTP |
-| HTTP to ELB from Internet | * | *  | ELB | 80 | TCP |
-| SSH | * | * | bastion | 22 | TCP |
-
-## Application URLS
-To access applications I created two AWS hostedzones:
+**Job Name: terraform-bastion-server:** <br />
+The job will create Bastion instance, this instance is exposed to the internet & will function as VPN server
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkis_terraform_deployments/jenkins_terraform_bastion_server.groovy)
++ [jenkins job link](https://jenkins.kandula.click/view/Terraform_Deployment/job/terraform-bastion-server)
 
 
-## Vulnerability Check
-In this Project I am using Trivy vulnerability tool
+**Job Name: terraform-ebs_jenkins:** <br />
+The job will create EBS Storage for Jenkins server to store all Jenkins Data & configs.
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkis_terraform_deployments/jenkins_terraform_ebs_jenkins.groovy)
++ [jenkins job link](https://jenkins.kandula.click/view/Terraform_Deployment/job/terraform-ebs_jenkins/)
 
-### Docker image Vulnerability Check via Trivy
-I integrated Trivy in my GitHub Actions pipeline.
-When we have Git push or pull requests to related Frontend, Backend, folders and files on "main" branch Github Actions will be trigger.
-Pipeline will create:
-+ Docker image 
-+ Docker image vulnerability check(with report) 
-+ Upload Docker image to docker hub if we dont have Critial vulnerability issue.
-
-#### Github Actions - Trivy report for Docker image Vulnerability :
-![architecture_diagram](diagrams_&_pictures/Trivy_docker_report.png)
+**Job Name: terraform-eks:** <br />
+The job will create EKS Cluster.
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkis_terraform_deployments/jenkins_terraform_eks.groovy)
++ [jenkins job link](https://jenkins.kandula.click/view/Terraform_Deployment/job/terraform-ebs_jenkins/)
 
 
-### Code scan vulnerability Check via Trivy
-For the code scan I used Trivy as well.
-I integrated Trivy with Github Actions & created workflow to scan my code when push and pull request created.
-Will failed the build when discovered critical vulnerability issues.
+**Job Name: terraform-jenkins:** <br />
+The job will create Jenkins Server & Jenkins Slave ready to use.
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkis_terraform_deployments/jenkins_terraform_jenkins.groovy)
++ [jenkins job link](https://jenkins.kandula.click/view/Terraform_Deployment/job/terraform-jenkins/)
 
-![architecture_diagram](diagrams_&_pictures/Trivy_Scanner_for_vulnerabilities_1.png)
+**Job Name: terraform-postgres:** <br />
+The job will create postgres DB on AWS RDS
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkis_terraform_deployments/jenkins_terraform_postgres.groovy)
++ [jenkins job link](https://jenkins.kandula.click/view/Terraform_Deployment/job/terraform-postgres/)
+
+**Job Name: terraform-s3-buckets:** <br />
+The job will create S3 bucket for loging
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkis_terraform_deployments/jenkins_terraform_s3_bucket.groovy)
++ [jenkins job link](https://jenkins.kandula.click/view/Terraform_Deployment/job/terraform-s3-buckets/)
+
+**Job Name: terraform-servers:** <br />
+The job will create instances for Elasticsearch, Consul and Prometheus
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkis_terraform_deployments/jenkins_terraform_servers.groovy)
++ [jenkins job link](https://jenkins.kandula.click/view/Terraform_Deployment/job/terraform-servers/)
+
+**Job Name: terraform-vpc:** <br />
+The job will create VPC & private zone on Route53
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkis_terraform_deployments/jenkins_terraform_vpc.groovy)
++ [jenkins job link](https://jenkins.kandula.click/view/Terraform_Deployment/job/terraform-vpc/)
+
+## Jenkins Ansible Playbooks
+
+![app_diagram](diagrams_&_pictures/jenkins_ansible_jobs.png)
+
+**Job Name: ansible-playbook-all-apps:** <br />
+The job will provision all the EC2 Instances that we created via terraform
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkins_ansible_playbooks/jenkins_ansible_build_kandula.groovy)
++ [ansible role location](/ansible/roles)
++ [jenkins job link](https://jenkins.kandula.click/view/Ansible-Playbooks/job/ansible-playbook-all-apps/)
+
+**Job Name: ansible-playbook-consul-agent:** <br />
+The job will install consul agent on relevant instances
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkins_ansible_playbooks/consul_agent_ansible_playbook.groovy)
++ [ansible role location](/ansible/roles/consul_agent)
++ [jenkins job link](https://jenkins.kandula.click/view/Ansible-Playbooks/job/ansible-playbook-consul-agent/)
+
+**Job Name: ansible-playbook-consul-registrator:** <br />
+The job will install consul registrator on all servers that have docker engine
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkins_ansible_playbooks/consul_registrator_ansible_playbook.groovy)
++ [ansible role location](/ansible/roles/consul_registrator)
++ [jenkins job link](https://jenkins.kandula.click/view/Ansible-Playbooks/job/ansible-playbook-consul-registrator/)
+
+**Job Name: ansible-playbook-consul-server:** <br />
+The job will install consul server (cluster of 3 servers)
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkins_ansible_playbooks/consul_server_ansible_playbook.groovy)
++ [ansible role location](/ansible/roles/consul)
++ [jenkins job link](https://jenkins.kandula.click/view/Ansible-Playbooks/job/ansible-playbook-consul-server/)
+
+**Job Name: ansible-playbook-elasticsearch:** <br />
+The job will install Elasticsearch & Kibana
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkins_ansible_playbooks/elasticsearch_ansible_playbook.groovy)
++ [ansible role location](/ansible/roles/elasticsearch)
++ [jenkins job link](https://jenkins.kandula.click/view/Ansible-Playbooks/job/ansible-playbook-elasticsearch/)
+
+**Job Name: ansible-playbook-filebeat-server:** <br />
+The job will install filebeat
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkins_ansible_playbooks/filebeat_ansible_playbook.groovy)
++ [ansible role location](/ansible/roles/filebeat)
++ [jenkins job link](https://jenkins.kandula.click/view/Ansible-Playbooks/job/ansible-playbook-filebeat-server/)
+
+**Job Name: ansible-playbook-logstahs-agent:** <br />
+The job will install logstash
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkins_ansible_playbooks/logstash_agent_ansible_playbook.groovy)
++ [ansible role location](/ansible/roles/logstash)
++ [jenkins job link](https://jenkins.kandula.click/view/Ansible-Playbooks/job/ansible-playbook-logstahs-agent/)
+
+**Job Name: ansible-playbook-node-exporter:** <br />
+The job will install Node Exporter
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkins_ansible_playbooks/node_exporter_ansible_playbook.groovy)
++ [ansible role location](/ansible/roles/node_exporter)
++ [jenkins job link](https://jenkins.kandula.click/view/Ansible-Playbooks/job/ansible-playbook-node-exporter/)
+
+**Job Name: ansible-playbook-prometheus:** <br />
+The job will install prometheus
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkins_ansible_playbooks/prometheus_ansible_playbook.groovy)
++ [ansible role location](/ansible/roles/prometheus)
++ [jenkins job link](https://jenkins.kandula.click/view/Ansible-Playbooks/job/ansible-playbook-prometheus/)
+
+## Jenkins Kubernetes Deployment
+
+![app_diagram](diagrams_&_pictures/jenkins_k8s_jobs.png)
+
+![Pipeline parameters example](diagrams_&_pictures/jenkins_k8s_params.png)
+
+**Job Name: Kandula-Deployment-All-EKS:** <br />
+The job will deploy all components on EKS cluter (will trigger all below jobs)
++ [jenkins file location](/Jenkins/jenkins_jobs/kubernetes_deployment/jenkins_kube_all_deployment.groovy)
++ [kube Deployment file or helm](/Jenkins/jenkins_jobs/kubernetes_deployment)
++ [jenkins job link](https://jenkins.kandula.click/view/Kubernetes_Deployment/job/Kandula-Deployment-All-EKS/)
+
+**Job Name: Kandula-Application-Deployment:** <br />
+The job will deploy kandula application on EKS cluster
++ [jenkins file location](/Jenkins/jenkins_jobs/kubernetes_deployment/jenkinsfile_kandula_deployment.groovy)
++ [ansible role location](/Jenkins/jenkins_jobs/kubernetes_deployment/kalandula_app.yaml)
++ [jenkins job link](https://jenkins.kandula.click/view/Kubernetes_Deployment/job/Kandula-Application-Deployment/)
+
+**Job Name: Kandula-Consul-Helm-Deployment:** <br />
+The job will deploy consul via helm chart on EKS Cluster
++ [jenkins file location](/Jenkins/jenkins_jobs/kubernetes_deployment/jenkinsfile_kube_consul_helm.groovy)
++ [ansible role location](/helm-releases/consul)
++ [jenkins job link](https://jenkins.kandula.click/view/Kubernetes_Deployment/job/Kandula-Consul-Helm-Deployment/)
+
+**Job Name: Kandula-Filebeat-Deployment:** <br />
+The job will deploy filebeat on EKS Cluster
++ [jenkins file location](/Jenkins/jenkins_jobs/kubernetes_deployment/jenkinsfile_kube_filebeat_deployment.groovy)
++ [ansible role location](/Jenkins/jenkins_jobs/kubernetes_deployment/filebeat-k8s-config.yaml)
++ [jenkins job link](https://jenkins.kandula.click/view/Kubernetes_Deployment/job/Kandula-Filebeat-Deployment/)
+
+**Job Name: Kandula-Prometheus-Stack-Deployment:** <br />
+The job will deploy Prometheus, Alertmanager, Node exporter, Grafana via helm chart on EKS Cluster
++ [jenkins file location](/Jenkins/jenkins_jobs/kubernetes_deployment/jenkinsfile_kube_prometheus_stack.groovy)
++ [ansible role location](/helm-releases/kube-prometheus-stack)
++ [jenkins job link](https://jenkins.kandula.click/view/Kubernetes_Deployment/job/Kandula-Prometheus-Stack-Deployment/)
+
+## Jenkins Docker Images
+
+![app_diagram](diagrams_&_pictures/jenkins_docker_jobs.png)
+
+**Job Name: Jenkins-Slave-Docker-clean :** <br />
+The job will clean jenkins server host from old docker images & continers that are not working(prune)
+Job have Scheduler that will run this job at midnight
++ [jenkins file location](/Jenkins/jenkins_jobs/docker-cleanup/docker_cleanup.groovy)
++ [jenkins job link](https://jenkins.kandula.click/view/Docker-Images/job/Jenkins-Slave-Docker-clean/)
+
+**Job Name: Jenkins-Slave-Docker-Image-Creation :** <br />
+The job will create jenkins slave docker image
++ [jenkins file location](/Jenkins/jenkins_jobs/jenkins_slave_images/create-update-image.groovy)
++ [jenkins job link](https://jenkins.kandula.click/view/Docker-Images/job/Jenkins-Slave-Docker-Image-Creation/)
+
+![app_diagram](diagrams_&_pictures/jenkins_docker_imge.png)
 
 
-## Clearpoint-Todo List App
-![Clearpoint Todo List App](diagrams_&_pictures/to_to_list_app.png)
+![app_params](diagrams_&_pictures/jenkins_docker_oarams.png)
+
+**Job Name: Kandula-Docker-Image-Creation :** <br />
+The job will create Kandula App docker image
++ [jenkins file location](https://github.com/eranmos/ops-school-kandula-project-app/blob/master/jenkins_kandula_create_image.groovy)
++ [jenkins job link](https://jenkins.kandula.click/view/Docker-Images/job/Kandula-Docker-Image-Creation/)
 
 
 
-### Improvement Points For The Future
-+ Creating helm chart for Backend and Frontend app.
-+ Creating CD with ArgosCD (for k8s deployments)
-+ Creating Metric monitoring with Prometheus, Node Exporter and Grafana ...
-+ Creating Loging Monitoring with Elasticsearch, Kibana, Logstash, Filebeat ...
-+ Creating Alertmanager & integrate it with slack to send msg for Critical problems.
-
-
+## Jenkins Plugins
