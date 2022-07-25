@@ -11,10 +11,10 @@ on:
       - .github/workflows/aws-eks-deployment-frontend.yml
       - EKS_deployments_yaml/*
 
-env:                                                      
- K8S_NAMESPACE: applications
- K8S_DEPLOYMENT: clearpoint-frontend
- DOCKER_TAG: latest
+env:
+  K8S_NAMESPACE: applications
+  K8S_DEPLOYMENT: clearpoint-frontend
+  DOCKER_TAG: latest
 
 
 jobs:
@@ -28,10 +28,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: checking work directory
-        run: |
-          ls -l
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -39,19 +35,23 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
-      - name: check pods status
+      - name: Check pods status befor deployment
+        uses: Consensys/kubernetes-action@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        with:
+          args: rollout status deployment/clearpoint-frontend -n ${{ env.K8S_NAMESPACE }}
+
+      - name: Dedploy clratpoint-frontend
         uses: Consensys/kubernetes-action@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
           args: apply -f frontend-deployment.yaml -n ${{ env.K8S_NAMESPACE }}
 
-      - name: verify deployment
-        uses: qazz92/kubectl@1.0.3
+      - name: check pods status afteer deployment
+        uses: Consensys/kubernetes-action@master
         env:
-          kube_confg_data: ${{ secrets.KUBE_CONFIG_DATA }}
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: ${{ secrets.AWS_DEFAULT_REGION }}
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          args: '"rollout status deployment/clearpoint-frontend"'
+          args: rollout status deployment/clearpoint-frontend -n ${{ env.K8S_NAMESPACE }}
