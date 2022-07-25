@@ -1,0 +1,64 @@
+name: Deploy-Service-Backend
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - .github/workflows/aws-eks-svc-backend.yml
+      - EKS_deployments_yaml/**
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - .github/workflows/aws-eks-svc-backend.yml
+      - EKS_deployments_yaml/*
+
+env:
+  K8S_NAMESPACE: applications
+  K8S_DEPLOYMENT: clearpoint-frontend
+  DOCKER_TAG: latest
+
+
+jobs:
+  Deploy-clearpoint-backend-on-EKS:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./EKS_deployments_yaml
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Check service status befor deployment
+        uses: Consensys/kubernetes-action@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        with:
+          args: get svc -o wide -n ${{ env.K8S_NAMESPACE }}
+
+      - name: Dedploy clratpoint-backend
+        uses: Consensys/kubernetes-action@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        with:
+          args: apply -f ./EKS_deployments_yaml/backend-service.yaml -n ${{ env.K8S_NAMESPACE }}
+
+      - name: Verify the deployment was successful
+        uses: Consensys/kubernetes-action@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        with:
+          args: rollout status deployment/service-clearpoint-backend -n ${{ env.K8S_NAMESPACE }}
+
+      - name: check service status afteer deployment
+        uses: Consensys/kubernetes-action@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        with:
+          args: get svc -o wide -n ${{ env.K8S_NAMESPACE }}
