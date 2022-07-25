@@ -5,6 +5,9 @@ on: [workflow_dispatch]
 jobs:
   Terrafrom-Deployment:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 12.x ]
     defaults:
       run:
         working-directory: ./EKS_deployments_yaml
@@ -19,4 +22,13 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Install Terraform
+        uses: little-core-labs/install-terraform@v2.0.0
+        with:
+          version: 1.2.5
+      - name: Terraform apply
+        run: |
+          terraform init
+          terraform plan
 
