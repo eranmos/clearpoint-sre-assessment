@@ -100,7 +100,7 @@ Infrastructure deployment will be performed via Terraform locally
 Terraform will create all the resources for this Project  <br /><br />
 
 3. When EKS cluster is ready you will need to update github secrets with KUBECONFIG file <br />
-   You can find it: cat $HOME/.kube/config | base64 .
+
 ```bash
 cat $HOME/.kube/config | base64
 ```
@@ -164,10 +164,10 @@ When pipeline succeeded you can verify in ECR that you can see the docker image 
 │      ├── ./.github/workflows/AWS-EKS-Deployment-Environment.yml
 ```
 
-[GitHub Actions](Deploy_nfrastructure_pipeline.png)
+![GitHub Actions](Deploy_nfrastructure_pipeline.png)
 
-7. Deploying below applications on EKS cluster:
-
+7. To find Application URL please go to github action logs & find below step after frontend-service deployment
+![Application URL](application_url.png)
 
 
 #### [Click here get all info about my jenkins jobs and configurations](Jenkins/README.md)

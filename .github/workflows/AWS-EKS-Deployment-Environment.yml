@@ -32,7 +32,7 @@ jobs:
         with:
           args: get pods -o wide -n ${{ env.K8S_NAMESPACE }}
 
-      - name: Dedploy clratpoint-backend
+      - name: Dedploy clearpoint-backend
         uses: Consensys/kubernetes-action@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
@@ -60,7 +60,7 @@ jobs:
         with:
           args: get svc -o wide -n ${{ env.K8S_NAMESPACE }}
 
-      - name: Dedploy clratpoint-backend-service
+      - name: Dedploy clearpoint-backend-service
         uses: Consensys/kubernetes-action@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
@@ -81,7 +81,7 @@ jobs:
         with:
           args: get pods -o wide -n ${{ env.K8S_NAMESPACE }}
 
-      - name: Dedploy clratpoint-frontend
+      - name: Dedploy clearpoint-frontend
         uses: Consensys/kubernetes-action@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
@@ -109,7 +109,7 @@ jobs:
         with:
           args: get svc -o wide -n ${{ env.K8S_NAMESPACE }}
 
-      - name: Dedploy clratpoint frontend service
+      - name: Dedploy clearpoint frontend service
         uses: Consensys/kubernetes-action@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
