@@ -1,14 +1,14 @@
-name: Deploy-Clearpoint-Frontend
+name: Deploy-Clearpoint-Backend
 on:
   push:
     branches: [ "main" ]
     paths:
-      - .github/workflows/aws-eks-deployment-frontend.yml
+      - .github/workflows/aws-eks-deployment-backend.yml
       - EKS_deployments_yaml/**
   pull_request:
     branches: [ "main" ]
     paths:
-      - .github/workflows/aws-eks-deployment-frontend.yml
+      - .github/workflows/aws-eks-deployment-backend.yml
       - EKS_deployments_yaml/*
 
 env:
@@ -18,7 +18,7 @@ env:
 
 
 jobs:
-  Deploy-clearpoint-frontend-on-EKS:
+  Deploy-clearpoint-backend-on-EKS:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -42,19 +42,19 @@ jobs:
         with:
           args: get pods -o wide -n ${{ env.K8S_NAMESPACE }}
 
-      - name: Dedploy clratpoint-frontend
+      - name: Dedploy clratpoint-backend
         uses: Consensys/kubernetes-action@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          args: apply -f ./EKS_deployments_yaml/frontend-deployment.yaml -n ${{ env.K8S_NAMESPACE }}
+          args: apply -f ./EKS_deployments_yaml/backend-deployment.yaml -n ${{ env.K8S_NAMESPACE }}
 
       - name: verify the deployment was successful
         uses: Consensys/kubernetes-action@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          args: rollout status deployment/clearpoint-frontend -n ${{ env.K8S_NAMESPACE }}
+          args: rollout status deployment/clearpoint-backend -n ${{ env.K8S_NAMESPACE }}
 
       - name: check pods status afteer deployment
         uses: Consensys/kubernetes-action@master
