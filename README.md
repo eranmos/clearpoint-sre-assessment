@@ -208,8 +208,7 @@ Will failed the build when discovered critical vulnerability issues.
 
 
 ## Clearpoint-Todo List App
-![Clearpoint Todo List App](diagrams_&_pictures/)
-
+![Clearpoint Todo List App](diagrams_&_pictures/to_to_list_app.png)
 
 
 ### Improvement Points For The Future
@@ -217,5 +216,6 @@ Will failed the build when discovered critical vulnerability issues.
 + Creating Metric monitoring with Prometheus, Node Exporter and Grafana ...
 + Creating Loging Monitoring with Elasticsearch, Kibana, Logstash, Filebeat ...
 + Creating Alertmanager & integrate it with slack to send msg for Critical problems.
++ Working with HTTPS & not http from internet to ELB and creating certification
 
 
