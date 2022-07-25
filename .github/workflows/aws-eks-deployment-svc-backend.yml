@@ -1,15 +1,5 @@
 name: Deploy-Service-Backend
-on:
-  push:
-    branches: [ "main" ]
-    paths:
-      - .github/workflows/aws-eks-deployment-svc-backend.yml
-      - EKS_deployments_yaml/**
-  pull_request:
-    branches: [ "main" ]
-    paths:
-      - .github/workflows/aws-eks-deployment-svc-backend.yml
-      - EKS_deployments_yaml/*
+on: [workflow_dispatch]
 
 env:
   K8S_NAMESPACE: applications
