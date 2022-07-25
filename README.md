@@ -13,8 +13,8 @@
 - [Prerequisites](#prerequisites)
 - [Repository Folder structure](#Repository-Folder-structure)
 - [Deployment Instructions](#Deployment-Instructions)
-- [Application Connections](#Application-Connections)
 - [Application URL](#Application-URLS)
+- [Application Connections](#Application-Connections)
 - [Vulnerability Check](#Vulnerability-Check)
 - [Clearpoint-Todo List App](#Clearpoint-Todo-List-App)
 - [Links to dockerhub related images](#Links-to-dockerhub-related-images)
@@ -163,9 +163,13 @@ When pipeline succeeded you can verify in ECR that you can see the docker image 
 │  └── ./.github/workflows
 │      ├── ./.github/workflows/AWS-EKS-Deployment-Environment.yml
 ```
+<br />
+
 ![GitHub Actions](diagrams_&_pictures/Deploy_nfrastructure_pipeline.png)
 
-7. To find Application URL please go to github action logs & find below step after frontend-service deployment
+## Application URL
+
+To find Application URL please go to github action logs & find below step after frontend-service deployment
 ![Application URL](diagrams_&_pictures/application_url.png)
 
 
@@ -178,11 +182,6 @@ When pipeline succeeded you can verify in ECR that you can see the docker image 
 | ----------- | ------ | ----------- | ------------ | -----------------| -------- |
 | Frontend | * | * | Backend | 80 | HTTP |
 | HTTP to ELB from Internet | * | *  | ELB | 80 | TCP |
-| SSH | * | * | bastion | 22 | TCP |
-
-## Application URLS
-To access applications I created two AWS hostedzones:
-
 
 ## Vulnerability Check
 In this Project I am using Trivy vulnerability tool
