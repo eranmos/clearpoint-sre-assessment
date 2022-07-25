@@ -58,10 +58,10 @@ To deploy all infrastructure you will need below application to be installed on 
 + Clone Project [GITHUB](https://github.com/eranmos/clearpoint-sre-assessment-tmp.git)
 + Create [Personal access tokens](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) on Github and save it for later
 + Create [Github Actions secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets) on the clone repo as below:
-#### DOCKERHUB_TOKEN
-#### DOCKERHUB_USERNAME
-#### TERRAFORM_AWS_ACCESS_KEY_ID
-#### TRERRAFORM_AWS_SECRET_ACCESS_KEY
+##### DOCKERHUB_TOKEN
+##### DOCKERHUB_USERNAME
+##### TERRAFORM_AWS_ACCESS_KEY_ID
+##### TRERRAFORM_AWS_SECRET_ACCESS_KEY
 
 ## Deployment Instructions
 Infrastructure deployment will be performed via Terraform locally or Github actions.
