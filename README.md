@@ -32,7 +32,7 @@
 ![app_diagram](diagrams_&_pictures/clearpoint_eks_diagram.png)
 
 ## Deployment Process
-+ Infrastructure deployment via Terraform & Github actions
++ Infrastructure deployment via Terraform
 + EKS deployments via Github actions
 
 ## Prerequisites
@@ -43,6 +43,18 @@ To deploy all infrastructure you will need below application to be installed on 
 + Install [Terraform v1.2.5](https://learn.hashicorp.com/tutorials/terraform/install-cli) on your workstation/server
 + Install [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) on your workstation/server
 + Install [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) on your workstation/server
+
+### AWS User and tokens
++ Access to your Console AWS and create a user for terraform deployment with right permissions. [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html)
++ Access to your Console AWS and create a user for Github action deployments with right permissions. [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html)
+
+### AWS Cli configurations
++ Configure your [AWS Cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) 
+
+### Github configurations
++ Fork Project [GITHUB](https://github.com/eranmos/clearpoint-sre-assessment-tmp.git)
++ Create [Personal access tokens](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) on Github and save it for later
++ create 
 
 ## Deployment Instructions
 Infrastructure deployment will be performed via Terraform locally or Github actions.
