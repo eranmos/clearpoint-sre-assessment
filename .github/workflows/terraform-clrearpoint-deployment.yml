@@ -5,9 +5,7 @@ on: [workflow_dispatch]
 jobs:
   Terrafrom-Deployment:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 12.x ]
+
     defaults:
       run:
         working-directory: ./terraform
