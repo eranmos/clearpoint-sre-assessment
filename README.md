@@ -15,10 +15,8 @@
 - [Application Connections](#Application-Connections)
 - [Application URLS](#Application-URLS)
 - [Vulnerability Check](#Vulnerability-Check)
-- [Monitoring](#Monitoring)
-- [Kandula](#Kandula)
+- [Clearpoint-Todo List App](#Clearpoint-Todo-List-App)
 - [Links to dockerhub related images](#Links-to-dockerhub-related-images)
-- [Links to GitHub related repository](#Links-to-GitHub-related-repository)
 - [Improvement Points For The Future](#Improvement-points-for-the-future)
 
 
@@ -102,13 +100,6 @@ Jenkins UI : https://jenkins.kandula.click/
 + Prometheus
 + Node Exporter
 
-All Ansible playbooks will be run via jenkins job (Ansible installed on the Jenkins-slave docker image).
-
-+ please run Jenkins job:
-+ [jenkins file location](/Jenkins/jenkins_jobs/jenkins_ansible_playbooks/jenkins_ansible_build_kandula.groovy)
-+ [jenkins job link](https://jenkins.kandula.click/view/Ansible-Playbooks/job/ansible-playbook-all-apps/)
-
-
 4. Deploying below applications on EKS cluster:
 + Kandula-Prometheus-Stack
 + Kandula App
@@ -131,22 +122,7 @@ All Ansible playbooks will be run via jenkins job (Ansible installed on the Jenk
 
 ## Application URLS
 To access applications I created two AWS hostedzones:
-1. Internal communication
-   ![route53 private](diagrams_&_pictures/route53_private.png)
 
-2. External communication
-   ![route53 public](diagrams_&_pictures/router53_public.png)
->note: records on route53 created via terraform deployment
-
-Public URLs to access my apps: <br />
-- [Kandula](https://app.kandula.click/) - Kandula web application
-- [Consul](https://consul.kandula.click/) - Consul UI
-- [Elasticsearch](https://es.kandula.click/) - DB to store logs
-- [Kibana](https://kibana.kandula.click/) - Kibana data visualization
-- [Prometheus EKS](https://prometheus.kandula.click/) -  Prometheus that monitoring EKS Cluster
-- [Prometheus EC2](https://prometheus-ec2.kandula.click/) - Prometheus that monitoring EC2 instances that not related to EKS
-- [Grafana](https://grafana.kandula.click/) - Grafana visualization (working with both Prometheus servers)
-- [Kibana](https://jenkins.kandula.click/) - Jenkins UI
 
 ## Vulnerability Check
 In this Project I am using Trivy vulnerability tool
@@ -171,58 +147,15 @@ Will failed the build when discovered critical vulnerability issues.
 ![architecture_diagram](diagrams_&_pictures/Trivy Scanner for vulnerabilities_1.png)
 
 
-## Monitoring
-![monitroing_diagram](diagrams_&_pictures/ops_school-project_monitoring_diagram.png)
+## Clearpoint-Todo List App
+![Clearpoint Todo List App](diagrams_&_pictures/)
 
-My monitoring sulition is devided for two parts :
-1. Metric monitoring
-   I am using below components for metric monitoring
-+ Prometheus
-+ Grafana
-+ Node Exporter
 
-#### Grafana NodeExporter dashboards for EC2 Instance
-![grafana_ec2_diagram](diagrams_&_pictures/grafana_ec2.png)
-
-#### Grafana
-![grafana_eks_diagram2](diagrams_&_pictures/grafana_node_eks.png)
-
-#### Grafana
-![grafana_eks_diagram3](diagrams_&_pictures/grafana_k8s_ns.png)
-
-2. Loging Monitoring
-   I am using below components for metric monitoring
-+ Elasticsearch
-+ Kibana
-+ Logstash
-+ Filebeat
-
-#### Kibana ALB dashboards
-![kibana_LB_diagram](diagrams_&_pictures/kibana_alb.png)
-
-#### EKS dashboards
-![kibana_APP_diagram](diagrams_&_pictures/kibana_eks.png)
-
-#### Kandula
-##### Kandula web site
-![kibana_APP_diagram](diagrams_&_pictures/kandula_app.png)
-
-![kibana_APP_diagram](diagrams_&_pictures/kandula_app1.png)
-
-### Links to dockerhub related images
-- [Kandula](https://hub.docker.com/repository/docker/erandocker/ops-school-kandula) - docker pull erandocker/ops-school-kandula:tagname
-- [Jenkins Slave Ubuntu-18.04](https://hub.docker.com/repository/docker/erandocker/jenkins-slave-ubuntu-18.4) - docker pull erandocker/jenkins-slave-ubuntu-18.4:tagname
-- [Jenkins Slave Centos-7](https://hub.docker.com/repository/docker/erandocker/jenkins-slave-docker-centos-7) - docker pull erandocker/jenkins-slave-docker-centos-7:tagname
-
-### Links to GitHub related repository
-- [Terrafom VPC module](https://github.com/eranmos/ops-school-terraform-aws-vpc.git) - Terraform VPC module for AWS VPC, Subnets, Routing, NAT Gateway creation
-- [Kandula Application](https://github.com/eranmos/ops-school-kandula-project-app.git) - Code for Kandule Application
 
 ### Improvement Points For The Future
-+ Creating helm chart for kandula app & filebeat.
-+ Improving my Grafana & Kibana dashboards.
-+ Supporting the DB connection to application.
-+ Adding more logs to Kandula application.
-+ Creating Alertmanager & integrate it with slack to send msg for Critical issues.
-+ using [Jenkins Fleet Plugin](https://plugins.jenkins.io/ec2-fleet/) to deploy Jenkins Slaves
++ Creating helm chart for Backend and Frontend app.
++ Creating Metric monitoring with Prometheus, Node Exporter and Grafana ...
++ Creating Loging Monitoring with Elasticsearch, Kibana, Logstash, Filebeat ...
++ Creating Alertmanager & integrate it with slack to send msg for Critical problems.
+
 
