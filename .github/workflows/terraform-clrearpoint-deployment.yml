@@ -10,7 +10,7 @@ jobs:
         node-version: [ 12.x ]
     defaults:
       run:
-        working-directory: ./EKS_deployments_yaml
+        working-directory: ./terraform
 
     steps:
       - name: Checkout code
