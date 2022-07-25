@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: clearpoint-frontend
-          image: "erandocker/clearpoint_frontend:latest"
+          image: "861864417278.dkr.ecr.us-east-1.amazonaws.com/clearpoint-frontend:latest"
       nodeSelector:
         role: frontend
 ...
