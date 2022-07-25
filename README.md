@@ -10,7 +10,7 @@
 - [EKS Diagram](#EKS-Diagram)
 - [IP Address Allocation](/network_address_design/network_adresses_design.md)
 - [Deployment Process](#Deployment-Process)
-- [Prerequisites-Applications and tools](#Prerequisites-Applications-and-tools)
+- [Prerequisites](#prerequisites)
 - [Deployment Instructions](#Deployment-Instructions)
 - [Application Connections](#Application-Connections)
 - [Application URLS](#Application-URLS)
@@ -35,7 +35,9 @@
 + Infrastructure deployment via Terraform & Github actions
 + EKS deployments via Github actions
 
-## Prerequisites - Applications and tools
+## Prerequisites
+
+### Applications and tools
 To deploy all infrastructure you will need below application to be installed on your workstation/server
 + Install [GIT](https://github.com/git-guides/install-git) on your workstation/server
 + Install [Terraform v1.2.5](https://learn.hashicorp.com/tutorials/terraform/install-cli) on your workstation/server
