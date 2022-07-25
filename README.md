@@ -170,6 +170,7 @@ When pipeline succeeded you can verify in ECR that you can see the docker image 
 ## Application URL
 
 To find Application URL please go to github action logs & find below step after frontend-service deployment
+
 ![Application URL](diagrams_&_pictures/application_url.png)
 
 
