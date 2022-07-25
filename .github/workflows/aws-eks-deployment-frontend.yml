@@ -1,28 +1,37 @@
-on: push
 name: Deploy-Clearpoint-Frontend
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - .github/workflows/aws-eks-deployment-frontend.yml
+      - EKS_deployments_yaml/**
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - .github/workflows/aws-eks-deployment-frontend.yml
+      - EKS_deployments_yaml/*
+
 jobs:
-  deploy:
-    name: Deploy frontend to EKS cluster
+  deploy-frontend-on-EKS:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
       - name: checking Deployment folder
+      - uses: actions/checkout@v3
         working-directory: Frontend
         run: |
           ls -l
 
-      - uses: actions/checkout@master
-      - name: deploy to cluster
+      - name: check pods status
         uses: qazz92/kubectl@1.0.3
-
         env:
           kube_confg_data: ${{ secrets.KUBE_CONFIG_DATA }}
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_DEFAULT_REGION }}
         with:
-          args: get pods -o wide -n applications
+          args: '"get pods -o wide -n applications"'
+
       - name: verify deployment
         uses: qazz92/kubectl@1.0.3
         env:
@@ -31,4 +40,4 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_DEFAULT_REGION }}
         with:
-          args: '"rollout status deployment/clearpoint-frontend"'
+          args: '"get svc -o wide -n applications"'
