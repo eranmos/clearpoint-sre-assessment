@@ -29,6 +29,7 @@ jobs:
           ls -l
 
       - name: check pods status
+        working-directory: EKS_deployments_yaml
         uses: qazz92/kubectl@1.0.3
         env:
           kube_confg_data: ${{ secrets.KUBE_CONFIG_DATA }}
