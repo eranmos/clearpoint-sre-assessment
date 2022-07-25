@@ -13,7 +13,7 @@
 - [Prerequisites](#prerequisites)
 - [Repository Folder structure](#Repository-Folder-structure)
 - [Deployment Instructions](#Deployment-Instructions)
-- [Application URL](#Application-URLS)
+- [Application URL](#Application-URL)
 - [Application Connections](#Application-Connections)
 - [Vulnerability Check](#Vulnerability-Check)
 - [Clearpoint-Todo List App](#Clearpoint-Todo-List-App)
