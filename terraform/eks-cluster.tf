@@ -30,7 +30,7 @@ module "eks" {
   map_users = [
     {
       userarn  = var.eks_userarn
-      username =
+      username = var.eks_username
       groups   = ["system:masters"]
     },
   ]
