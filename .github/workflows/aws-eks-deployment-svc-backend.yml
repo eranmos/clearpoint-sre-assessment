@@ -49,13 +49,6 @@ jobs:
         with:
           args: apply -f ./EKS_deployments_yaml/backend-service.yaml -n ${{ env.K8S_NAMESPACE }}
 
-      - name: Verify the deployment was successful
-        uses: Consensys/kubernetes-action@master
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        with:
-          args: rollout status service/service-clearpoint-backend -n ${{ env.K8S_NAMESPACE }}
-
       - name: check service status afteer deployment
         uses: Consensys/kubernetes-action@master
         env:
