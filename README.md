@@ -45,8 +45,8 @@ To deploy all infrastructure you will need below application to be installed on 
 + Install [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) on your workstation/server
 
 ### AWS User and tokens
-+ Access to your Console AWS and create a user for terraform deployment with right permissions [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) and save it for later
-+ Access to your Console AWS and create a user for Github action deployments with right permissions [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) and save it for later
++ Access to your Console AWS and create a user for terraform deployment with the right permissions. [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) Save it for later
++ Access to your Console AWS and create a user for Github action deployments with the right permissions. [Link](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) Save it for later
 
 ### AWS Cli configurations
 + Configure your [AWS Cli](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) 
