@@ -14,6 +14,7 @@
 - [Repository Folder structure](#Repository-Folder-structure)
 - [Deployment Instructions](#Deployment-Instructions)
 - [Application URL](#Application-URL)
+- [GitHub Actions](/.github/workflows/README.md)
 - [Application Connections](#Application-Connections)
 - [Vulnerability Check](#Vulnerability-Check)
 - [Clearpoint-Todo List App](#Clearpoint-Todo-List-App)
