@@ -18,7 +18,7 @@ env:
 
 
 jobs:
-  Deploy-clearpoint-backend-on-EKS:
+  Deploy-clearpoint-backend-service-on-EKS:
     runs-on: ubuntu-latest
     defaults:
       run:
