@@ -77,18 +77,19 @@ To deploy all infrastructure you will need below application to be installed on 
 ├── ./network_address_design
 └── ./terraform
 ```
-.github/workflows - All the CD pipelines for github actions <br />
-Backend - Backend application folder and docker file <br />
-EKS_deployments_yaml - All EKS deployments files(manifests) <br />
-Frontend - Frontend application folder and docker file <br />
-diagrams_&_pictures - All print screens for readme.md files <br />
-network_address_design - Network address allocation for this project <br />
-terraform - terraform files for infrastructure deployment on AWS <br />
++ /.github/workflows - All the CD pipelines for github actions <br />
++ /Backend - Backend application folder and docker file <br />
++ /EKS_deployments_yaml - All EKS deployments files(manifests) <br />
++ /Frontend - Frontend application folder and docker file <br />
++ /diagrams_&_pictures - All print screens for readme.md files <br />
++ network_address_design - Network address allocation for this project <br />
++ /terraform - terraform files for infrastructure deployment on AWS <br />
 
 ## Deployment Instructions
 Infrastructure deployment will be performed via Terraform locally
-1. Clone [GITHUB](https://github.com/eranmos/clearpoint-sre-assessment-tmp.git) Project to your desktop
-2. Access to terraform folder and run below commands
+1. Clone [GITHUB](https://github.com/eranmos/clearpoint-sre-assessment-tmp.git) Project to your desktop <br /> <br />
+
+3. Access to terraform folder and run below commands
 
    ```bash
    terraform init
@@ -96,18 +97,18 @@ Infrastructure deployment will be performed via Terraform locally
    terraform apply --auto-approve
    ```
 
-Terraform will create all the resources for this Project
+Terraform will create all the resources for this Project  <br /><br />
 
 3. When EKS cluster is ready you will need to update github secrets with KUBECONFIG file <br />
    You can find it: cat $HOME/.kube/config | base64 .
-   ```bash
-   cat $HOME/.kube/config | base64
-      ```
-   copy the result and them to github secrets that you already created
+```bash
+cat $HOME/.kube/config | base64
+```
+copy the result and them to github secrets that you already created
 ```
 ##### KUBE_CONFIG_DATA
-```
-
+``` 
+<br />
 4. In this step you will need to update the docker image repository location by copy then from the terraform output
 
 ```
@@ -115,6 +116,7 @@ Backend_repository_URL = "XXXXXXXXX.dkr.ecr.us-east-1.amazonaws.com/clearpoint-f
 Frontend_repository_URL = "XXXXXXXXX.dkr.ecr.us-east-1.amazonaws.com/clearpoint-backend"
 ```
 please update backend url in the backend deployment yaml:
+
 ```
 ├── ./EKS_deployments_yaml
 │    ├── ./EKS_deployments_yaml/backend-deployment.yaml
@@ -125,19 +127,23 @@ containers:
   - name: clearpoint-backend
     image: "XXXXXXXXX.dkr.ecr.us-east-1.amazonaws.com/clearpoint-backend:latest"
 ```
+
 Please update frontend url in the frontend deployment yaml:
+
 ```
 ├── ./EKS_deployments_yaml
     ├── ./EKS_deployments_yaml/frontend-deployment.yaml
 ```
+
 ```
 containers:
   - name: clearpoint-frontend
     image: "XXXXXXXXX.dkr.ecr.us-east-1.amazonaws.com/clearpoint-frontend:latest"
 ```
-
+<br />
 5. Push your changes to main github branch will trigger github Action that will create docker image & will upload it to ecr repository <br />
 You can find related workflow on below location:
+
 ```
 ├── ./.github
     └── ./.github/workflows
@@ -145,10 +151,12 @@ You can find related workflow on below location:
         ├── ./.github/workflows/docker-image-frontend-aws.yml
 
 ```
+
 When pipeline succeeded you can verify in ECR that you can see the docker image & tags for backend & frontend <br />
 
 6. To deploy Backend, Backend service, Frontend and frontend service on EKS cluster you will need to trigger manually the CD pipeline. <br />
    You can find related workflow on below location:
+
 ```
 ── ./.github
 │  ├── ./.github/.DS_Store
