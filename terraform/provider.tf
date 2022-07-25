@@ -21,6 +21,5 @@ terraform {
     region  = "us-east-1"
     encrypt = true
     profile = "eran-private"
-    #    dynamodb_table = "terraform-state-lock"
   }
 }

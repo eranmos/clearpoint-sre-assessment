@@ -52,24 +52,6 @@ variable "private_subnet2_address_space" {
   type        = string
 }
 
-#############  ECS Related  ##########
-variable "ecs_frontend_instance_type" {
-  description = "EC2 instance type for Frontend"
-  type        = string
-}
-variable "ecs_backend_instance_type" {
-  description = "EC2 instance type for Backend"
-  type        = string
-}
-variable "ecs_frontend_ami" {
-  description = "EC2 AMI ID for Backend"
-  type        = string
-}
-variable "ecs_backend_ami" {
-  description = "EC2 AMI ID for Backend"
-  type        = string
-}
-
 #############  Route53 Related  ##########
 variable "private_hosted_zone_domain" {
   description = "my aws private hosted zone"
@@ -129,4 +111,17 @@ variable "project_name" {
   description = "The Name of the Project"
   type        = string
 }
+
+variable "eks_userarn" {
+  description = "The ARN of the user that you would like to add to aws-auth configmap"
+  type        = string
+}
+
+variable "eks_username" {
+  description = "The username that you would like to add to aws-auth configmap"
+  type        = string
+}
+
+
+
 

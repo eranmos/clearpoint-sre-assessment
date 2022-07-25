@@ -1,3 +1,6 @@
+###############
+# EKS Cluster #
+###############
 module "eks" {
   source          = "terraform-aws-modules/eks/aws"
   version         = "17.24.0"
@@ -26,8 +29,8 @@ module "eks" {
 
   map_users = [
     {
-      userarn  = "arn:aws:iam::861864417278:user/terraform-nz"
-      username = "terraform-nz"
+      userarn  = var.eks_userarn
+      username =
       groups   = ["system:masters"]
     },
   ]

@@ -17,13 +17,6 @@ private_subnet1_address_space = "10.0.2.0/23"
 public_subnet2_address_space  = "10.0.1.0/24"
 private_subnet2_address_space = "10.0.4.0/23"
 
-#############  ECS Related  ##########
-ecs_frontend_instance_type  = "t2.micro"
-ecs_backend_instance_type   = "t2.micro"
-ecs_frontend_ami            = "ami-1924770e"
-ecs_backend_ami             = "ami-1924770e"
-generated_key_name          = "clearpoint-key-pair"
-
 #############  Route53 Related  ##########
 private_hosted_zone_domain = "clearpoint.int"
 
@@ -33,6 +26,8 @@ cluster_irsa            = true
 backend_instance_type   = "t3.medium"
 frontend_instance_type  = "t3.medium"
 application_namespace   = "applications"
+eks_userarn             = "arn:aws:iam::861864417278:user/terraform-nz"
+eks_username            = "terraform-nz"
 
 #############  Tags Related  #############
 environment_name = "clearpoint-prod"

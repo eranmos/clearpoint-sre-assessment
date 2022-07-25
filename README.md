@@ -32,19 +32,18 @@
 ![app_diagram](diagrams_&_pictures/clearpoint_eks_diagram.png)
 
 ## Deployment Process
-+ Infrastructure deployment via Terraform & Jenkins
-+ EC2 instances provisioning via Jenkins jobs that will run Ansible Playbooks)
-+ EKS deployments via Jenkins Jobs
++ Infrastructure deployment via Terraform & Github actions
++ EKS deployments via Github actions
 
 ## Prerequisites
 To deploy all infrastructure you will need below application to be installed on your workstation/server
 + Install [GIT](https://github.com/git-guides/install-git) on your workstation/server
-+ Install [Terraform v1.1.2](https://learn.hashicorp.com/tutorials/terraform/install-cli) on your workstation/server
++ Install [Terraform v1.2.5](https://learn.hashicorp.com/tutorials/terraform/install-cli) on your workstation/server
 + Install [aws cli](https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html) on your workstation/server
 + Install [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) on your workstation/server
 
 ## Deployment Instructions
-Infrastructure deployment will be performed via Terraform locally & Jenkins.
+Infrastructure deployment will be performed via Terraform locally or Github actions.
 1. Terraform deployment is divided into eight parts.
    Run the following on each terraform_XXX folder (Jenkins job can run only after Jenkins deployment)
    ```bash
