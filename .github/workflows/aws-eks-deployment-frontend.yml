@@ -6,6 +6,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+      - name: checking Deployment folder
+        working-directory: Frontend
+        run: |
+          ls -l
+
       - uses: actions/checkout@master
       - name: deploy to cluster
         uses: qazz92/kubectl@1.0.3
