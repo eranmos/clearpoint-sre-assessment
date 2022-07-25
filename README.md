@@ -29,7 +29,7 @@
 ![app_diagram](diagrams_&_pictures/clearpoint-project_app_diagram.png)
 
 ## EKS Diagram
-![app_diagram](diagrams_&_pictures/kandula_eks_diagram.png)
+![app_diagram](diagrams_&_pictures/clearpoint_eks_diagram.png)
 
 ## Deployment Process
 + Infrastructure deployment via Terraform & Jenkins
