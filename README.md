@@ -149,11 +149,11 @@ Public URLs to access my apps: <br />
 - [Kibana](https://jenkins.kandula.click/) - Jenkins UI
 
 ## Vulnerability Check
-In this Project I am using Trivy vulnerability tools
+In this Project I am using Trivy vulnerability tool
 
 ### Docker image Vulnerability Check via Trivy
 I integrated Trivy in my GitHub Actions pipeline.
-When we have Git push or pull requests to That related to /Frontend, /Backend, folders on "main" branch Github Actions will be trigger.
+When we have Git push or pull requests to related  /Frontend, /Backend, folders and files on "main" branch Github Actions will be trigger.
 Pipeline will create:
 + Docker image 
 + Docker image vulnerability check(with report) 
