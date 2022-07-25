@@ -153,23 +153,23 @@ In this Project I am using Trivy vulnerability tools
 
 ### Docker image Vulnerability Check via Trivy
 I integrated Trivy in my GitHub Actions pipeline.
-When we have Git push or MR to That related to /Frontend, /Backend, folders on "main" branch Github Actions will be trigger.
+When we have Git push or pull requests to That related to /Frontend, /Backend, folders on "main" branch Github Actions will be trigger.
 Pipeline will create:
 + Docker image 
 + Docker image vulnerability check(with report) 
 + Upload Docker image to docker hub if we dont have Critial vulnerability issue.
 
-#### Github Actions - Docker image creation pipeline with Trivy:
-![architecture_diagram](diagrams_&_pictures/jenkins_trivy_build.png)
+#### Github Actions - Trivy report for Docker image Vulnerability :
+![architecture_diagram](diagrams_&_pictures/Trivy_docker_report.png)
 
 
 #### Trivy report on Github Actions:
 ![architecture_diagram](diagrams_&_pictures/jenkins_trivy_report.png)
 
-### Code scan vulnerability Check via Trivy & Snyk
-For the code scan I used two tools Trivy & Snyk.
-I integrated Trivy with my github & created workflow to scan my code when pull request created
-and will failed the build when discovered critical issues.
+### Code scan vulnerability Check via Trivy
+For the code scan I used Trivy as well.
+I integrated Trivy with Github Actions & created workflow to scan my code when push and pull request created.
+Will failed the build when discovered critical vulnerability issues.
 
 ![architecture_diagram](diagrams_&_pictures/trivy_github_1.png)
 
