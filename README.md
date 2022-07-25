@@ -144,7 +144,7 @@ For the code scan I used Trivy as well.
 I integrated Trivy with Github Actions & created workflow to scan my code when push and pull request created.
 Will failed the build when discovered critical vulnerability issues.
 
-![architecture_diagram](diagrams_&_pictures/Trivy Scanner for vulnerabilities_1.png)
+![architecture_diagram](diagrams_&_pictures/Trivy_Scanner_for_vulnerabilities_1.png)
 
 
 ## Clearpoint-Todo List App
