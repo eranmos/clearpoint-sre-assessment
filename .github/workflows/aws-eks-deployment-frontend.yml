@@ -18,7 +18,7 @@ env:
 
 
 jobs:
-  deploy-frontend-on-EKS:
+  Deploy-clearpoint-frontend-on-EKS:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -40,14 +40,14 @@ jobs:
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          args: rollout status deployment/clearpoint-frontend -n ${{ env.K8S_NAMESPACE }}
+          args: get pods -n ${{ env.K8S_NAMESPACE }}
 
       - name: Dedploy clratpoint-frontend
         uses: Consensys/kubernetes-action@master
         env:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
-          args: apply -f frontend-deployment.yaml -n ${{ env.K8S_NAMESPACE }}
+          args: apply -f ./EKS_deployments_yaml/frontend-deployment.yaml -n ${{ env.K8S_NAMESPACE }}
 
       - name: check pods status afteer deployment
         uses: Consensys/kubernetes-action@master
@@ -55,3 +55,10 @@ jobs:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
           args: rollout status deployment/clearpoint-frontend -n ${{ env.K8S_NAMESPACE }}
+
+      - name: check pods status afteer deployment
+        uses: Consensys/kubernetes-action@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        with:
+          args: describe deployment kubeserve -n ${{ env.K8S_NAMESPACE }}
