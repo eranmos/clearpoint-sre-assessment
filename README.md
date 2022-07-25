@@ -26,7 +26,7 @@
 ![architecture_diagram](diagrams_&_pictures/clearpoint_project_architecture_diagram.png)
 
 ## Application Diagram
-![app_diagram](diagrams_&_pictures/ops_school-project_app_diagram.png)
+![app_diagram](diagrams_&_pictures/clearpoint-project_app_diagram.png)
 
 ## EKS Diagram
 ![app_diagram](diagrams_&_pictures/kandula_eks_diagram.png)
