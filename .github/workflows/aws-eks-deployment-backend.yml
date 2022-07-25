@@ -34,18 +34,21 @@ jobs:
 
       - name: Dedploy clratpoint-backend
         uses: Consensys/kubernetes-action@master
-
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
           args: apply -f ./EKS_deployments_yaml/backend-deployment.yaml -n ${{ env.K8S_NAMESPACE }}
 
       - name: verify the deployment was successful
         uses: Consensys/kubernetes-action@master
-
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
           args: rollout status deployment/clearpoint-backend -n ${{ env.K8S_NAMESPACE }}
 
       - name: check pods status afteer deployment
         uses: Consensys/kubernetes-action@master
-
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
           args: get pods -o wide -n ${{ env.K8S_NAMESPACE }}
