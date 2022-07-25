@@ -63,6 +63,7 @@ To deploy all infrastructure you will need below application to be installed on 
 ##### TERRAFORM_AWS_ACCESS_KEY_ID
 ##### TRERRAFORM_AWS_SECRET_ACCESS_KEY
 
++ Enable [Github code scanning](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/setting-up-code-scanning-for-a-repository) for a repository
 + 
 
 ## Deployment Instructions
