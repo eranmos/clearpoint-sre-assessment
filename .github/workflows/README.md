@@ -4,17 +4,17 @@
 <p align="center"><img width="250px" src="./diagrams_&_pictures/github_ations_pic.png"></p>
 
 ## Application diagram
-![app_diagram](diagrams_&_pictures/ops_school-jenkins_app_diagram.png)
+![app_diagram](diagrams_&_pictures/github_ations_pic.png)
 
-Jenkins Link : https://jenkins.kandula.click/
+Actions Link : https://github.com/eranmos/clearpoint-sre-assessment/actions
 
 ## Table of Contents
 
-- [Jenkins Terraform Deployment](#Jenkins-Terraform-Deployment)
-- [Jenkins Ansible Playbooks](#Jenkins-Ansible-Playbooks)
-- [Jenkins Kubernetes Deployment](#Jenkins-Kubernetes-Deployment)
-- [Jenkins Docker Images](#Jenkins-Docker-Images)
-- [Jenkins plugins](#Jenkins-plugins)
+- [GitHub Actions Backend Deployment](#GitHub-Actions-Backend-Deployment)
+- [GitHub Actions Frontend Deployment](#GitHub Actions Frontend-Deployment)
+- [GitHub Actions BE Service Deployment](#GitHub Actions BE Service Deployment)
+- [GitHub Actions FE service Deployment](#GitHub-Actions-FE-service-Deployment)
+- [GitHub Actions EKS Deployment](#GitHub-Actions-EKS-Deployment)
 
 ## Jenkins Terraform Deployment
 
